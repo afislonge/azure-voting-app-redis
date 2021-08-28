@@ -19,15 +19,15 @@ sh.setLevel(logging.INFO)
 logger.addHandler(sh)
 
 # Metrics
-exporter =  # TODO: Setup exporter
+exporter = ''  # TODO: Setup exporter
 
 # Tracing
-tracer =  # TODO: Setup tracer
+tracer = ''  # TODO: Setup tracer
 
 app = Flask(__name__)
 
 # Requests
-middleware =  # TODO: Setup flask middleware
+middleware = ''  # TODO: Setup flask middleware
 
 # Load configurations from environment or config file
 app.config.from_pyfile('config_file.cfg')
@@ -85,10 +85,12 @@ def index():
             vote1 = r.get(button1).decode('utf-8')
             properties = {'custom_dimensions': {'Cats Vote': vote1}}
             # TODO: use logger object to log cat vote
+            logger.info('Cats Vote', extra=properties)
 
             vote2 = r.get(button2).decode('utf-8')
             properties = {'custom_dimensions': {'Dogs Vote': vote2}}
             # TODO: use logger object to log dog vote
+            logger.info('Dogs Vote', extra=properties)
 
             return render_template("index.html", value1=int(vote1), value2=int(vote2), button1=button1, button2=button2, title=title)
 
@@ -108,6 +110,6 @@ def index():
 
 if __name__ == "__main__":
     # comment line below when deploying to VMSS
-    app.run()  # local
+    # app.run()  # local
     # uncomment the line below before deployment to VMSS
-    # app.run(host='0.0.0.0', threaded=True, debug=True) # remote
+    app.run(host='0.0.0.0', threaded=True, debug=True)  # remote
