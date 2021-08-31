@@ -47,6 +47,7 @@ echo "STEP 2 - Creating network security group $nsgName"
 az network nsg create \
 --resource-group $resourceGroup \
 --name $nsgName \
+--location $location \
 --verbose
 
 echo "Network security group created: $nsgName"
@@ -56,6 +57,7 @@ echo "STEP 3 - Creating VM scale set $vmssName"
 
 az vmss create \
   --resource-group $resourceGroup \
+  --location $location \
   --name $vmssName \
   --image $osType \
   --vm-sku $vmSize \
